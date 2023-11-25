@@ -6,23 +6,24 @@ static const unsigned int gappx     = 12;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *barlayout        = "ltn|s";	/* tln|s by default */
-static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          ={"EnvyCodeR Nerd Font:size=10","monospace:size=9"};
+static const char *barlayout        = "ltn|s ";	/* tln|s by default */
+static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const char *fonts[]          ={"EnvyCodeR Nerd Font:size=11","monospace:size=9"};
 static const char dmenufont[]       = "EnvyCodeR Nerd Font:size=9";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#f0ead0";
+static const char col_gray3[]       = "#666666";
 static const char col_gray4[]       = "#eeeeee";
-static const char main_col[]        = "#c8ccd6";
+static const char main_col[]        = "#c0afc0";
 //   /---/ CUSTOM COLORS /---/
+static const char white[]           = 	"#c8ccd6";
 static const char black[]           = 	"#151515";
 static const char bg[]              = 	"#080808";
 static const unsigned int baralpha = 0xef;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, bg },
+	[SchemeNorm] = { white,     bg,        bg },
 	[SchemeSel]  = { black,     main_col,  main_col  },
 };
 static const unsigned int alphas[][3]      = {
@@ -32,7 +33,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "󰈹 ", " ", "󰓇 ", "󰓓 ", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -71,10 +72,11 @@ static const Layout layouts[] = {
 
 /* COMMANDS */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon,"-p","Dmenu:_ ",  "-fn", dmenufont, "-nb", black, "-nf", col_gray3, "-sb", main_col, "-sf", black, NULL };
+static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon,"-p","Dmenu:_ ",  "-fn", dmenufont, "-nb", black, "-nf", white, "-sb", white, "-sf", black, NULL };
 static const char *termcmd[]   = { "st", NULL };
 static const char *turnoff[]   = { "/home/bbasic/.suckless/dmenu/scripts/turnoff.sh", NULL };
 static const char *wifi[]      = { "/home/bbasic/.suckless/dmenu/scripts/wifi.sh", NULL };
+static const char *screenshot[]= { "flameshot","gui", NULL };
 /* VOLUME AND BRIGHTNESS CONTROL */
 static const char *vol_up[]    = { "/home/bbasic/.config/dunst/vol_bri.sh", "volume_up", NULL};
 static const char *vol_dn[]    = { "/home/bbasic/.config/dunst/vol_bri.sh", "volume_down", NULL};
@@ -94,6 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,	                XK_x,	   spawn,          {.v = turnoff } },
 	{ MODKEY,	                XK_z,	   spawn,          {.v = wifi } },
+	{ MODKEY,	                XK_s,	   spawn,          {.v = screenshot} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -119,14 +122,14 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	//{ 0,XF86XK_AudioRaiseVolume, 		   spawn, 	   {.v = upvol   } },
 	//{ 0,XF86XK_AudioLowerVolume, 		   spawn, 	   {.v = downvol } },
 	//{ 0,XF86XK_AudioMute, 			   spawn, 	   {.v = mutevol } },
-	//{ 0,XF86XK_AudioRaiseVolume, 		   spawn, 	   {.v = upvol   } },
 	//{ 0,XF86XK_MonBrightnessUp,  		   spawn, 	   {.v = light_up} },
 	//{ 0,XF86XK_MonBrightnessDown,		   spawn, 	   {.v = light_down} },
+	{ 0,XF86XK_AudioRaiseVolume, 		   spawn, 	   {.v = vol_up   } },
 	{ 0,XF86XK_AudioLowerVolume, 		   spawn, 	   {.v = vol_dn } },
 	{ 0,XF86XK_AudioMute, 			   spawn, 	   {.v = vol_mt } },
-	{ 0,XF86XK_AudioRaiseVolume, 		   spawn, 	   {.v = vol_up   } },
 	{ 0,XF86XK_MonBrightnessUp,  		   spawn, 	   {.v = bri_up} },
 	{ 0,XF86XK_MonBrightnessDown,		   spawn, 	   {.v = bri_dn} },
 	TAGKEYS(                        XK_1,                      0)
