@@ -49,19 +49,34 @@ clock() {
 	echo -e "$dte"; }
 
 network(){
-	ssid="$(iw dev | grep ssid | awk '{print $2}')"
+	ssid="$(iw dev | awk '/ssid/{print $2}')"; icon=" "
+	signal=$(nmcli -t -f SIGNAL device wifi | head -n1 )
 	case "$ssid" in
-		"")echo -e "󰤮  NULL" ;;	
-		*) echo -e "󰤥  $ssid";;
-	esac;}	
+		"") ssid="NULL";;  *) ;;
+	esac;
+	if [ "$signal" = "--" ] || [ -z "$signal" ]; then
+        	icon="󰣽"
+    	else
+		# Categorize signal strength
+		if [ "$signal" -ge 80 ]; then
+		    icon="󰣺";
+		elif [ "$signal" -ge 60 ] && [ "$signal" -lt 80 ]; then
+		    icon="󰣸";
+		elif [ "$signal" -ge 40 ] && [ "$signal" -lt 60 ]; then
+		    icon="󰣶";
+		elif [ "$signal" -ge 20 ] && [ "$signal" -lt 40 ]; then
+		    icon="󰣴";
+		fi
+	fi
+	echo -e "$icon $ssid"; }	
 
 keyboard(){
 	kb=$(setxkbmap -query | awk '/layout/ {print $2}')
 	case "$kb" in
-		"gb") kb="UK";; 	"us") kb="US";;
-		"latam") kb="ES";;	*) kb=$kb;; 
+		"gb") kb="Uk";; 	"us") kb="Us";;
+		"latam") kb="Es";;	*) kb=$kb;; 
 	esac;
-	echo -e "󰘶 :$kb"; }
+	echo -e "󱋷 :$kb"; }
 
 updates(){ 
 	upd=$(checkupdates | wc -l) 
