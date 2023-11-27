@@ -66,6 +66,8 @@ network(){
 		    icon="󰣶";
 		elif [ "$signal" -ge 20 ] && [ "$signal" -lt 40 ]; then
 		    icon="󰣴";
+	    	else
+		    icon="󰣾";
 		fi
 	fi
 	echo -e "$icon $ssid"; }	
