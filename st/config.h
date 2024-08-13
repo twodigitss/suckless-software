@@ -5,9 +5,11 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Terminess Nerd Font : pixelsize=14 : antialias=true : autohint=true";
+static char *font = "CascadiaCode : pixelsize=11 : antialias=true : autohint=true";
+//static char *font = "CousineNerdFont : pixelsize=14 : antialias=true : autohint=true";
+//static char *font = "Terminess Nerd Font : pixelsize=14 : antialias=true : autohint=true";
 //static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 20;
+static int borderpx = 10;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -95,7 +97,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 4;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 1;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -125,7 +127,7 @@ static const char *colorname[] = {
 	"#cccccc",
 	"#555555",
 	"gray90", /* default foreground colour */
-	"black", /* default background colour */
+	"#121212", /* default background colour */
 };
 
 
